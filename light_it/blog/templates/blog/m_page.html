@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+</head>
+<body>
+<h3>Message Page!</h3>
+
+{% for message in messages %}
+    <p>Author: {{ message.author }}</p>
+    <p>{{ message.text|linebreaksbr }}</p>
+    <p>{{ message.published_date }}</p>
+
+<a href="{% url 'm_edit' pk=message.pk %}">Edit</a>
+
+{% empty %}
+    <p>No messages yet :(</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <form action="#" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Add">
+    </form>
+
+{% else %}
+    <a href="{% url 'a_page' %}">
+        <b>For registered users only!</b>
+    </a>
+{% endif %}
+
+</body>
+</html>
