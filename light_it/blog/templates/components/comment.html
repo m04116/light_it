@@ -1,0 +1,18 @@
+{# light_it/blog/templates/components/comment.html #}
+{% load mptt_tags %}
+
+{% recursetree comments %}
+    <div class="comment-wrapper">
+        <div class="comment-content">
+            <p>
+                {{ node.author }}
+            </p>
+
+            {{ node.text|safe }}
+
+            {% if not node.is_leaf_node %}
+                {{ children }}
+            {% endif %}
+        </div>
+    </div>
+{% endrecursetree %}

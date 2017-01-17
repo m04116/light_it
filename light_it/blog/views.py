@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post
 from django.core.urlresolvers import reverse
-from .forms import PostForm
 from django.utils import timezone
+
+from .models import Post
+from .forms import PostForm
 
 
 def authorization_page(request):
@@ -10,15 +11,22 @@ def authorization_page(request):
 
 
 def m_page(request):
-    messages = Post.objects.order_by('-published_date')
+    posts = (
+        Post.objects
+        .select_related('author')
+        .prefetch_related('comments')
+        .order_by('-published_date'))
+
     form = PostForm(request.POST or None)
+
     if form.is_valid():
         form = form.save(commit=False)
         form.author = request.user
         form.published_date = timezone.now()
         form.save()
         return redirect('m_page')
-    context = {'messages': messages, 'form': form, 'm_edit': mess_edit}
+
+    context = {'messages': posts, 'form': form, 'm_edit': mess_edit}
     return render(request, 'blog/m_page.html', context)
 
 

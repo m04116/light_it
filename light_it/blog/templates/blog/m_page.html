@@ -8,12 +8,18 @@
 <h3>Message Page!</h3>
 
 {% for message in messages %}
+    <p>------------------------------</p>
     <p>Author: {{ message.author }}</p>
     <p>{{ message.text|linebreaksbr }}</p>
     <p>{{ message.published_date }}</p>
 
-<a href="{% url 'm_edit' pk=message.pk %}">Edit</a>
+    <a href="{% url 'm_edit' pk=message.pk %}">Edit</a>
 
+    <p>*****</p>
+
+    {% include 'components/comment.html' with comments=message.comments.all %}
+
+    <p>------------------------------</p>
 {% empty %}
     <p>No messages yet :(</p>
 {% endfor %}
