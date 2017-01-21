@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 
 
 def authorization_page(request):
@@ -44,3 +44,18 @@ def mess_edit(request, pk):
         form = PostForm(instance=message)
     context = {'message': message, 'form': form}
     return render(request, 'blog/edit.html', context)
+
+
+def add_comment(request, pk):
+#    message = get_object_or_404(Comment, pk=pk)
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        form = form.save(commit=False)
+        form.author = request.user
+#        form.published_date = timezone.now()
+        form.save()
+        return redirect ('m_page')
+    else:
+        form = CommentForm()
+    context ={'form': form}
+    return render (request, 'blog/add_comment.html', context)

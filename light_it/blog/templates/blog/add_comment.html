@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add comment</title>
+  </head>
+  <body>
+    <p>Author: {{ message.author }}</p>
+    <p>{{ message.text|linebreaksbr }}</p>
+    <p>{{ message.published_date }}</p>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="Add comment">
+    </form>  
+  </body>
+</html>

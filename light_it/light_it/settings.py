@@ -36,8 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mptt',
+
     'blog',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -50,12 +51,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DEBUG:
-    INTERNAL_IPS = ('127.0.0.1', )
-    INSTALLED_APPS += ['debug_toolbar', ]
-    MIDDLEWARE += [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    ]
+# if DEBUG:
+#     INTERNAL_IPS = ('127.0.0.1', )
+#     INSTALLED_APPS += ['debug_toolbar', ]
+#     MIDDLEWARE += [
+#         'debug_toolbar.middleware.DebugToolbarMiddleware',
+#     ]
 
 ROOT_URLCONF = 'light_it.urls'
 

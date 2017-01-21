@@ -14,6 +14,7 @@
     <p>{{ message.published_date }}</p>
 
     <a href="{% url 'm_edit' pk=message.pk %}">Edit</a>
+    <a href="{% url 'add_comment' pk=message.pk %}">Add comment</a>
 
     <p>*****</p>
 
