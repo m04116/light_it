@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
-from .models import Post
+from .models import Post, Comment
 from .forms import PostForm, CommentForm
 
 
@@ -49,11 +49,12 @@ def mess_edit(request, pk):
 def add_comment(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
-    form = CommentForm(request.POST)
+    form = CommentForm(request.POST or None)
 
     if form.is_valid():
         form = form.save(commit=False)
         form.author = request.user
+#        form.post = post
         form.post = post
 #        form.published_date = timezone.now()
         form.save()
@@ -61,4 +62,23 @@ def add_comment(request, pk):
     else:
         form = CommentForm()
     context ={'form': form}
+    return render (request, 'blog/add_comment.html', context)
+
+
+def add_comment_2(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+
+    form = CommentForm(request.POST or None)
+
+    if form.is_valid():
+        form = form.save(commit=False)
+        form.author = request.user
+#        form.post = post
+        form.comment = comment
+#        form.published_date = timezone.now()
+        form.save()
+        return redirect ('m_page')
+    else:
+        form = CommentForm()
+    context ={'form': form, 'comment': comment}
     return render (request, 'blog/add_comment.html', context)

@@ -8,7 +8,7 @@ class PostAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
 #    list_display = ('author', 'text', 'published_date', 'id', 'pk')
-    list_display = ('text', 'parent')
+    list_display = ('text', 'parent', 'pk')
 
 
 admin.site.register(Post, PostAdmin)

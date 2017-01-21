@@ -20,6 +20,10 @@
 
     {% include 'components/comment.html' with comments=message.comments.all %}
 
+        <a href="{% url 'add_comment' pk=message.pk %}">Add comment</a>
+
+
+
     <p>------------------------------</p>
 {% empty %}
     <p>No messages yet :(</p>

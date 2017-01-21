@@ -9,9 +9,10 @@
             </p>
 
             {{ node.text|safe }}
-
+                <a href="{% url 'add_comment_2' pk=node.pk %}">Add comment</a>
             {% if not node.is_leaf_node %}
                 {{ children }}
+
             {% endif %}
         </div>
     </div>
