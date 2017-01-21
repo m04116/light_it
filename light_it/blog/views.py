@@ -47,11 +47,14 @@ def mess_edit(request, pk):
 
 
 def add_comment(request, pk):
-#    message = get_object_or_404(Comment, pk=pk)
+    post = get_object_or_404(Post, pk=pk)
+
     form = CommentForm(request.POST)
+
     if form.is_valid():
         form = form.save(commit=False)
         form.author = request.user
+        form.post = post
 #        form.published_date = timezone.now()
         form.save()
         return redirect ('m_page')
